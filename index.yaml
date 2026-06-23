@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  nginx:
+  - apiVersion: v2
+    appVersion: 1.27.0
+    created: "2026-06-12T19:28:54.912327152+03:00"
+    description: My test nginx
+    digest: 8943c85989c08f9de02fda8ca05d9b11e763792dd1964bc1fc0c5206b2cd4c93
+    name: nginx
+    type: application
+    urls:
+    - nginx-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-06-12T19:28:54.912121636+03:00"

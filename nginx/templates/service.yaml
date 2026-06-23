@@ -1,0 +1,18 @@
+{{- if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-svc
+  labels:
+    app: {{ .Release.Name }}-{{ .Chart.Name }}
+    release: {{ .Release.Name }}
+spec:
+    type: {{ .Values.service.type}}
+    ports:
+        - port: {{ .Values.service.port}}
+          targetPort: {{ .Values.service.targetPort }}
+          protocol: {{ .Values.service.protocol }}
+    selector:
+        app: {{ .Release.Name }}-{{ .Chart.Name }}
+        release: {{ .Release.Name }}
+{{- end }}

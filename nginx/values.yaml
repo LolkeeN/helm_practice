@@ -1,0 +1,14 @@
+## @param replicaCount The number of replicas to deploy
+replicaCount: 3
+
+## Settings for nginx image
+image:
+  name: nginx
+  tag: 1.27.0
+
+## Service data
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+  protocol: TCP

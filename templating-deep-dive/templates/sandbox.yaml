@@ -1,0 +1,46 @@
+list1:
+{{ list 1 2 3 4 5 | toYaml}}
+list2: {{ toYaml (list 1 2 3 4 5) | nindent 2}}
+
+map: {{ dict "1" "one" "2" "two" "3" "three" }}
+mapComplex: {{ dict "simple" "dimple" "complex" (dict "pop" "it") | toYaml | nindent 2}}
+
+#helpers named template
+namedTemplate: {{ include "templating-deep-dive.fullname" . }}
+
+#Labels from helpers named template
+metadata:
+  labels: 
+    {{- include "templating-deep-dive.selectorLabels" . | nindent 4 }} 
+
+#Service
+service:
+{{- if .Values.service.enabled }}
+  enabled:  true
+{{ else }}
+  disabled: true
+{{ end }}
+
+#List services
+{{- range $index, $service := (.Values.services | default list) }}
+type: {{ $service.type }}
+enabled: {{ $service.enabled }}
+port: {{ $service.port }}
+{{- end}}
+
+#Map services
+{{- range $key, $value := (.Values.serviceMap | default dict )}}
+type: {{$key }}-{{ $value.type }}
+enabled: {{ $value.enabled }}
+port: {{ $value.port }}
+{{- end }}
+
+# . context overriding with 'with' keyword
+containers:
+  {{- with .Values.securityContext | default dict }}
+  {{- if and (hasKey . "enabled" ) .enabled }}
+  securityContext:
+    runAsUser: {{ .runAsUser }}
+    fsGroup: {{ .fsGroup }}
+  {{- end }}
+  {{- end }}
