@@ -16,7 +16,7 @@ image:
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 # This is to override the chart name.
-nameOverride: "override from parent"
+nameOverride: "override-from-parent"
 fullnameOverride: ""
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
@@ -160,12 +160,14 @@ tolerations: []
 
 affinity: {}
 
-demo-subchart:
-  customValue: 'hello from config-store'
-
-global:
-  defaultStorageClass: 'my-custom-storage-class'
-
-tags:
-  database: true
-  performance: false
+postgresql:
+  image:
+    registry: docker.io
+    repository: bitnamilegacy/postgresql
+  fullnameOverride: postgresql-db
+  auth:
+    username: config_store_user
+    database: config_store_db
+    existingSecret: postgres-creds
+    secretKeys:
+      userPasswordKey: password
