@@ -163,5 +163,5 @@ affinity: {}
 demo-subchart:
   customValue: 'hello from config-store'
 
-postgresql:
-  fullnameOverride: 'my-new-name'
+global:
+  defaultStorageClass: 'my-custom-storage-class'
