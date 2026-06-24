@@ -165,3 +165,7 @@ demo-subchart:
 
 global:
   defaultStorageClass: 'my-custom-storage-class'
+
+tags:
+  database: true
+  performance: false
